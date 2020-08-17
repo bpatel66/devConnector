@@ -1,10 +1,19 @@
+// we import express to allow us to build out the middleware of our applcation
 const express = require('express');
+// import our database file to connect our database when the applcation starts
 const connectDB = require('./config/db');
 
 const app = express();
 
 // Connect Database
 connectDB();
+
+// initialize middleware
+app.use(
+  express.json({
+    extended: false,
+  })
+);
 
 app.get('/', (req, res) => res.send('API Running'));
 
