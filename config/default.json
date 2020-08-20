@@ -1,3 +1,6 @@
 {
-  "mongoURI": "mongodb+srv://bpatel66:bpatel66@devconnector.pjztm.mongodb.net/<dbname>?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://bpatel66:bpatel66@devconnector.pjztm.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken",
+  "githubClientId": "4b96696d6820d171b0d4",
+  "githubSecret": "607dd51cc87f4679feda5b8cb6447e37acb80d14"
 }

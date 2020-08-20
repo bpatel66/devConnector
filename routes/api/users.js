@@ -8,7 +8,10 @@ const User = require('../../models/User');
 const gravatar = require('gravatar');
 // import bcrypt to allow us to encrypy our user passwords
 const bcrypt = require('bcryptjs');
-
+// import jsonwebtoken
+const jwt = require('jsonwebtoken');
+// import config to access the jwt secret
+const config = require('config');
 // we import express-validator that will help with user input validation, things like making sure the user inputted an email and a we can even set a minimum length for a password.
 const { check, validationResult } = require('express-validator');
 
@@ -73,7 +76,23 @@ router.post(
       await user.save();
 
       // Return jsonwebtoken
-      res.send('User Registered');
+      // create payload, which will consist of a object with a user that has an id property
+      // the id property is retrieved by calling user.id
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 36000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
